@@ -1,5 +1,7 @@
 package borsoi.guilherme.dio.client;
 
+import borsoi.guilherme.dio.domain.Conta;
+
 import java.math.BigDecimal;
 
 public interface IConta {
@@ -8,5 +10,7 @@ public interface IConta {
 
     void sacar(BigDecimal valorSaque);
 
-    void transferir(String contaOrigem, String contaDestino, BigDecimal valorTransferencia);
+    void transferir(Conta contaDestino, BigDecimal valorTransferencia);
+
+    void imprimirExtrato();
 }
