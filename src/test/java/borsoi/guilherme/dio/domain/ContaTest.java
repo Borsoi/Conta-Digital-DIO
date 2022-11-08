@@ -8,9 +8,21 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ContaTest {
+
+    @Test
+    @DisplayName("Deve instaciar corretamente um objeto da classe Conta sem o endereço preenchido")
+    void deveInstanciarClasseContaCorretamente() {
+        ContaCorrente cc = gerarContaTeste();
+
+        assertEquals("36616-2", cc.getAgencia());
+        assertEquals(3, cc.getNumero());
+        assertEquals(BigDecimal.ZERO, cc.getSaldo());
+        assertNotNull(cc.getCliente());
+    }
 
     @Test
     @DisplayName("Deve conseguir depositar o valor com sucesso")
@@ -39,11 +51,13 @@ class ContaTest {
         ContaCorrente cc = gerarContaTeste();
 
         cc.depositar(BigDecimal.valueOf(1500.00));
+        BigDecimal valorSaque = BigDecimal.valueOf(2000.00);
 
-        assertThrows(SaldoInsuficienteException.class, () -> cc.sacar(BigDecimal.valueOf(2000.00)));
+        assertThrows(SaldoInsuficienteException.class, () -> cc.sacar(valorSaque));
     }
 
     @Test
+    @DisplayName("Deve conseguir realizar uma transferência com sucesso")
     void deveConseguirTransferirComSucesso() {
         ContaCorrente cc = gerarContaTeste();
         cc.depositar(BigDecimal.valueOf(1500.00));
